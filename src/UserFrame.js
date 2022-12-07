@@ -56,7 +56,7 @@ export default function UserFrame() {
     <div>
       <div>
         <h1>Users</h1>
-        <Button variant="contained" onClick={() => setCreateUser(true)}>
+        <Button className="button-right" variant="contained" onClick={() => setCreateUser(true)}>
           Add user
         </Button>
         <TableContainer>
@@ -85,7 +85,7 @@ export default function UserFrame() {
                     <Button variant="contained" onClick={() => setEditUser(user)}>
                       Edit
                     </Button>
-                    <Button variant="contained" onClick={() => deleteUser(user)}>
+                    <Button color="error" variant="contained" onClick={() => deleteUser(user)}>
                       Delete
                     </Button>
                   </TableCell>
@@ -97,6 +97,17 @@ export default function UserFrame() {
       </div>
       {createUser || editUser ? (
         <div>
+          <Button
+            className="button-right"
+            color="error"
+            variant="contained"
+            onClick={() => {
+              setCreateUser(false);
+              setEditUser(null);
+            }}
+          >
+            Close
+          </Button>
           <UserForm user={editUser} handleUser={handleUsersModifications} />
         </div>
       ) : null}
