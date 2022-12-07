@@ -5,12 +5,20 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import UserCreate from './UserCreate';
 
 export default function UserFrame() {
   const [users, setUsers] = useState([]);
+  const [createUser, setCreateUser] = useState(false);
+
+  const addUser = (user) => {
+    setUsers([user, ...users]);
+    setCreateUser(false);
+  };
 
   useEffect(() => {
     axios
@@ -25,33 +33,43 @@ export default function UserFrame() {
 
   return (
     <div>
-      <h1>Users</h1>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Username</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right">Website</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell component="th" scope="row">
-                  {user.name}
-                </TableCell>
-                <TableCell align="right">{user.username}</TableCell>
-                <TableCell align="right">{user.email}</TableCell>
-                <TableCell align="right">{user.phone}</TableCell>
-                <TableCell align="right">{user.website}</TableCell>
+      <div>
+        <h1>Users</h1>
+        <Button variant="contained" onClick={() => setCreateUser(true)}>
+          Add user
+        </Button>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Username</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Phone</TableCell>
+                <TableCell align="right">Website</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell component="th" scope="row">
+                    {user.name}
+                  </TableCell>
+                  <TableCell align="right">{user.username}</TableCell>
+                  <TableCell align="right">{user.email}</TableCell>
+                  <TableCell align="right">{user.phone}</TableCell>
+                  <TableCell align="right">{user.website}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      {createUser ? (
+        <div>
+          <UserCreate addUser={addUser} />
+        </div>
+      ) : null}
     </div>
   );
 }
