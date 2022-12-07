@@ -36,6 +36,11 @@ export default function UserFrame() {
     }
   };
 
+  const deleteUser = (user) => {
+    const newUsers = users.filter((u) => u.id !== user.id);
+    setUsers(newUsers);
+  };
+
   useEffect(() => {
     axios
       .get('https://jsonplaceholder.typicode.com/users')
@@ -76,9 +81,12 @@ export default function UserFrame() {
                   <TableCell align="right">{user.email}</TableCell>
                   <TableCell align="right">{user.phone}</TableCell>
                   <TableCell align="right">{user.website}</TableCell>
-                  <TableCell align="right">
+                  <TableCell id="actionButtons" align="right">
                     <Button variant="contained" onClick={() => setEditUser(user)}>
                       Edit
+                    </Button>
+                    <Button variant="contained" onClick={() => deleteUser(user)}>
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>
