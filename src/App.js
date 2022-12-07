@@ -1,4 +1,5 @@
 import './styles.css';
+import UserFrame from './UserFrame';
 
 /**
  *  ///// KÄYTTÄJIEN HALLINTAPANEELI /////
@@ -23,5 +24,9 @@ import './styles.css';
  */
 
 export default function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <UserFrame />
+    </div>
+  );
 }
